@@ -7,7 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather App</title>
     <link rel="stylesheet" href="css/mystyles.css" />
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <script defer src="./assets/script.js"></script>
+    <script defer src="https://use.fontawesome.com/08bbc51be9.js"></script>
 </head>
 
 <body>
@@ -18,9 +20,19 @@
     </div>
     <div class="container is-max-widescreen">
         <div class="columns">
-            <div class="column is-3">
+            <div class="column is-4">
                 <h3 class="title is-3"> Search for a city: </h2>
-                    <input type="text" class="input is-info" placeholder="ie: New York">
+                    <input type="text" class="input is-info mb-5" id="city-input" placeholder="ie: New York">
+                    <div class="columns">
+
+                        <input class="input is-info column is-3 ml-3" id="state-input" placeholder="ie: NY">
+                        <input class="input is-info column is-3 ml-3" id="country-input" placeholder="ie: USA">
+                        <button class="button is-info column is-4 ml-3 is-size-6 p-1"
+                            onclick="javascript:window.open('https://datahub.io/core/country-list#resource-country-list_zip', '_blank');">Check Country</button>
+
+                    </div>
+                    <button class="button is-success column is-12 has-text-centered p-1 mt-5"
+                        id="search-weather">Search</button>
                     <hr class="search-hr">
                     <button class="button is-warning column is-12 has-text-centered p-2 mb-3">Example Button</button>
                     <button class="button is-warning column is-12 has-text-centered p-2 mb-3">Example Button</button>
@@ -29,7 +41,7 @@
                     <button class="button is-warning column is-12 has-text-centered p-2 mb-3">Example Button</button>
                     <button class="button is-warning column is-12 has-text-centered p-2 mb-3">Example Button</button>
             </div>
-            <div class="column is-9 mt-2">
+            <div class="column is-8 mt-2">
                 <div class="box">
                     <h4 class="title is-4">Atlanta, GA (icon)</h4>
                     <p class="mb-3">Temp:</p>
