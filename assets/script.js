@@ -29,6 +29,9 @@ const app = {
   fetchWeather: (location) => {
     const currentWeatherBox = document.getElementById("weather-box");
     const forecastTitle = document.getElementById("forecast-title");
+    const currentForecastTitle = document.getElementById(
+      "currentforecast-title"
+    );
     const forecastBox = document.getElementById("five-day-forecast");
     const weatherCard1 = document.getElementById("weather-card-1");
     const weatherCard2 = document.getElementById("weather-card-2");
@@ -49,6 +52,7 @@ const app = {
         if (data) {
           currentWeatherBox.classList.remove("hide");
           forecastTitle.classList.remove("hide");
+          currentForecastTitle.classList.remove("hide");
           forecastBox.classList.remove("hide");
           weatherCard1.classList.remove("hide");
           weatherCard2.classList.remove("hide");
@@ -71,18 +75,41 @@ const app = {
         let threeHourArray = data.list;
         let fiveDayForecast = [];
         fiveDayForecast.push(
+          threeHourArray[0],
           threeHourArray[8],
           threeHourArray[16],
           threeHourArray[24],
-          threeHourArray[32],
-          threeHourArray[39]
+          threeHourArray[32]
         );
+
+        //save to localStorage
+        let searchHistory = {};
+        searchHistory.city = data.city.name;
 
         //pass data
         app.displayCurrentForecast(currentForecast);
         app.displayFiveDayForecast(fiveDayForecast);
+        app.saveSearch(searchHistory);
       })
       .catch(console.err);
+  },
+
+  saveSearch: (passedCity) => {
+    const searchHistoryArea = document.getElementById("searchContainer");
+    localStorage.setItem("city", passedCity.city);
+    let searchHistoryButtonInput = localStorage.getItem("city");
+    let searchHistoryButton = document.createElement("button");
+    searchHistoryButton.classList.add(
+      "button",
+      "is-warning",
+      "column",
+      "is-12",
+      "has-text-centered",
+      "p-2",
+      "mb-3"
+    );
+    searchHistoryButton.innerText = searchHistoryButtonInput;
+    searchHistoryArea.appendChild(searchHistoryButton);
   },
 
   displayCurrentForecast: (weatherResp) => {
@@ -107,14 +134,18 @@ const app = {
   },
 
   displayFiveDayForecast: (weatherResp) => {
-    console.log(weatherResp);
+    console.log(weatherResp[0].dt_);
+    const currentWeatherTitle = document.getElementById(
+      "currentforecast-title"
+    );
     const weatherCard1 = document.getElementById("weather-card-1");
     const weatherCard2 = document.getElementById("weather-card-2");
     const weatherCard3 = document.getElementById("weather-card-3");
     const weatherCard4 = document.getElementById("weather-card-4");
     const weatherCard5 = document.getElementById("weather-card-5");
-    weatherCard1.innerHTML = 
-    `<div class="card-header">
+    currentWeatherTitle.innerText =
+      "Current Weather on " + weatherResp[0].dt_txt;
+    weatherCard1.innerHTML = `<div class="card-header">
         <div class="card-header-title">
             ${weatherResp[0].dt_txt} <img src="https://openweathermap.org/img/wn/${weatherResp[0].weather[0].icon}.png">
         </div>
@@ -126,8 +157,7 @@ const app = {
             <p><strong>Humidity:</strong> ${weatherResp[0].main.humidity}%</p>
         </div>
     </div>`;
-    weatherCard2.innerHTML = 
-    `<div class="card-header">
+    weatherCard2.innerHTML = `<div class="card-header">
         <div class="card-header-title">
             ${weatherResp[1].dt_txt} <img src="https://openweathermap.org/img/wn/${weatherResp[1].weather[0].icon}.png">
         </div>
@@ -139,8 +169,7 @@ const app = {
             <p><strong>Humidity:</strong> ${weatherResp[1].main.humidity}%</p>
         </div>
     </div>`;
-    weatherCard3.innerHTML = 
-    `<div class="card-header">
+    weatherCard3.innerHTML = `<div class="card-header">
         <div class="card-header-title">
             ${weatherResp[2].dt_txt} <img src="https://openweathermap.org/img/wn/${weatherResp[2].weather[0].icon}.png">
         </div>
@@ -152,8 +181,7 @@ const app = {
             <p><strong>Humidity:</strong> ${weatherResp[2].main.humidity}%</p>
         </div>
     </div>`;
-    weatherCard4.innerHTML = 
-    `<div class="card-header">
+    weatherCard4.innerHTML = `<div class="card-header">
         <div class="card-header-title">
             ${weatherResp[3].dt_txt} <img src="https://openweathermap.org/img/wn/${weatherResp[3].weather[0].icon}.png">
         </div>
@@ -165,8 +193,7 @@ const app = {
             <p><strong>Humidity:</strong> ${weatherResp[3].main.humidity}%</p>
         </div>
     </div>`;
-    weatherCard5.innerHTML = 
-    `<div class="card-header">
+    weatherCard5.innerHTML = `<div class="card-header">
         <div class="card-header-title">
             ${weatherResp[4].dt_txt} <img src="https://openweathermap.org/img/wn/${weatherResp[4].weather[0].icon}.png">
         </div>
