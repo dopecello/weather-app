@@ -27,7 +27,14 @@ const app = {
   },
 
   fetchWeather: (location) => {
-    let currentWeatherBox = document.querySelector("#weather-box");
+    const currentWeatherBox = document.getElementById("weather-box");
+    const forecastTitle = document.getElementById("forecast-title");
+    const forecastBox = document.getElementById("five-day-forecast");
+    const weatherCard1 = document.getElementById("weather-card-1");
+    const weatherCard2 = document.getElementById("weather-card-2");
+    const weatherCard3 = document.getElementById("weather-card-3");
+    const weatherCard4 = document.getElementById("weather-card-4");
+    const weatherCard5 = document.getElementById("weather-card-5");
     let lat = location.lat;
     let lon = location.lon;
     let key = "cc1eec67d9c183eb5563d87e72e89138";
@@ -41,6 +48,13 @@ const app = {
         console.log(data);
         if (data) {
           currentWeatherBox.classList.remove("hide");
+          forecastTitle.classList.remove("hide");
+          forecastBox.classList.remove("hide");
+          weatherCard1.classList.remove("hide");
+          weatherCard2.classList.remove("hide");
+          weatherCard3.classList.remove("hide");
+          weatherCard4.classList.remove("hide");
+          weatherCard5.classList.remove("hide");
         }
 
         // current forecast values
@@ -87,13 +101,83 @@ const app = {
       "(" +
       weatherResp.currentIconDes +
       ")";
-    tempInsert.innerText = "Temp: " + weatherResp.temp + " °F";
-    windInsert.innerText = "Wind: " + weatherResp.wind + " MPH";
+    tempInsert.innerText = "Temp: " + weatherResp.temp + "°F";
+    windInsert.innerText = "Wind: " + weatherResp.wind + "MPH";
     humidityInsert.innerText = "Humidity: " + weatherResp.humidity + "%";
   },
 
   displayFiveDayForecast: (weatherResp) => {
     console.log(weatherResp);
+    const weatherCard1 = document.getElementById("weather-card-1");
+    const weatherCard2 = document.getElementById("weather-card-2");
+    const weatherCard3 = document.getElementById("weather-card-3");
+    const weatherCard4 = document.getElementById("weather-card-4");
+    const weatherCard5 = document.getElementById("weather-card-5");
+    weatherCard1.innerHTML = 
+    `<div class="card-header">
+        <div class="card-header-title">
+            ${weatherResp[0].dt_txt} <img src="https://openweathermap.org/img/wn/${weatherResp[0].weather[0].icon}.png">
+        </div>
+    </div>
+    <div class="card-content">
+        <div class="content">
+            <p class="mb-3"><strong>Temp:</strong> ${weatherResp[0].main.temp} °F</p>
+            <p class="mb-3"><strong>Wind:</strong> ${weatherResp[0].wind.speed}mph</p>
+            <p><strong>Humidity:</strong> ${weatherResp[0].main.humidity}%</p>
+        </div>
+    </div>`;
+    weatherCard2.innerHTML = 
+    `<div class="card-header">
+        <div class="card-header-title">
+            ${weatherResp[1].dt_txt} <img src="https://openweathermap.org/img/wn/${weatherResp[1].weather[0].icon}.png">
+        </div>
+    </div>
+    <div class="card-content">
+        <div class="content">
+            <p class="mb-3"><strong>Temp:</strong> ${weatherResp[1].main.temp} °F</p>
+            <p class="mb-3"><strong>Wind:</strong> ${weatherResp[1].wind.speed}mph</p>
+            <p><strong>Humidity:</strong> ${weatherResp[1].main.humidity}%</p>
+        </div>
+    </div>`;
+    weatherCard3.innerHTML = 
+    `<div class="card-header">
+        <div class="card-header-title">
+            ${weatherResp[2].dt_txt} <img src="https://openweathermap.org/img/wn/${weatherResp[2].weather[0].icon}.png">
+        </div>
+    </div>
+    <div class="card-content">
+        <div class="content">
+            <p class="mb-3"><strong>Temp:</strong> ${weatherResp[2].main.temp} °F</p>
+            <p class="mb-3"><strong>Wind:</strong> ${weatherResp[2].wind.speed}mph</p>
+            <p><strong>Humidity:</strong> ${weatherResp[2].main.humidity}%</p>
+        </div>
+    </div>`;
+    weatherCard4.innerHTML = 
+    `<div class="card-header">
+        <div class="card-header-title">
+            ${weatherResp[3].dt_txt} <img src="https://openweathermap.org/img/wn/${weatherResp[3].weather[0].icon}.png">
+        </div>
+    </div>
+    <div class="card-content">
+        <div class="content">
+            <p class="mb-3"><strong>Temp:</strong> ${weatherResp[3].main.temp} °F</p>
+            <p class="mb-3"><strong>Wind:</strong> ${weatherResp[3].wind.speed}mph</p>
+            <p><strong>Humidity:</strong> ${weatherResp[3].main.humidity}%</p>
+        </div>
+    </div>`;
+    weatherCard5.innerHTML = 
+    `<div class="card-header">
+        <div class="card-header-title">
+            ${weatherResp[4].dt_txt} <img src="https://openweathermap.org/img/wn/${weatherResp[4].weather[0].icon}.png">
+        </div>
+    </div>
+    <div class="card-content">
+        <div class="content">
+            <p class="mb-3"><strong>Temp:</strong> ${weatherResp[4].main.temp} °F</p>
+            <p class="mb-3"><strong>Wind:</strong> ${weatherResp[4].wind.speed}mph</p>
+            <p><strong>Humidity:</strong> ${weatherResp[4].main.humidity}%</p>
+        </div>
+    </div>`;
   },
 };
 
