@@ -38,11 +38,11 @@
                     <button class="button is-warning column is-12 has-text-centered p-2 mb-3">Example Button</button>
             </div>
             <div class="column is-8 mt-2">
-                <div class="box">
-                    <h4 class="title is-4"><span id="city">Atlanta</span>, <span id="country">US</span><span id="current-weather-icon"></span></h4>
-                    <p class="mb-3" id="current-temp">Temp:</p>
-                    <p class="mb-3" id="current-wind">Wind:</p>
-                    <p class="mb-3" id="current-humidity">Humidity:</p>
+                <div class="box hide" id="weather-box">
+                    <h4 class="title is-4"><span id="city"></span><span id="country"></span><span id="current-weather-icon"></span></h4>
+                    <p class="mb-3" id="current-temp"></p>
+                    <p class="mb-3" id="current-wind"></p>
+                    <p class="mb-3" id="current-humidity"></p>
                 </div>
                 <h5 class="title is-5">5-Day Forecast:</h5>
                 <div class="columns">
@@ -120,6 +120,11 @@
             </div>
         </div>
     </div>
+    <style>
+        .hide {
+            display: none;
+        }
+    </style>
 </body>
 
 </html>
