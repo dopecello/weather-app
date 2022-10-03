@@ -55,7 +55,9 @@ const app = {
   fetchWeather: (location) => {
     const currentWeatherBox = document.getElementById("weather-box");
     const forecastTitle = document.getElementById("forecast-title");
-    const currentForecastTitle = document.getElementById("currentforecast-title");
+    const currentForecastTitle = document.getElementById(
+      "currentforecast-title"
+    );
     const forecastBox = document.getElementById("five-day-forecast");
     const weatherCard1 = document.getElementById("weather-card-1");
     const weatherCard2 = document.getElementById("weather-card-2");
@@ -180,13 +182,24 @@ const app = {
     const weatherCard3 = document.getElementById("weather-card-3");
     const weatherCard4 = document.getElementById("weather-card-4");
     const weatherCard5 = document.getElementById("weather-card-5");
+    timesArray = [];
+    timesArray.push(
+      weatherResp[0].dt,
+      weatherResp[1].dt,
+      weatherResp[2].dt,
+      weatherResp[3].dt,
+      weatherResp[4].dt
+    );
+    convertedTimesArray = timesArray.map((date) =>
+      new Date(date * 1000).toLocaleDateString("en-US")
+    );
 
     currentWeatherTitle.innerText =
-      "Current Weather on " + weatherResp[0].dt_txt;
+      "Current Weather on " + convertedTimesArray[0];
 
     weatherCard1.innerHTML = `<div class="card-header">
         <div class="card-header-title">
-            ${weatherResp[0].dt_txt} <img src="https://openweathermap.org/img/wn/${weatherResp[0].weather[0].icon}.png">
+            ${convertedTimesArray[0]} <img src="https://openweathermap.org/img/wn/${weatherResp[0].weather[0].icon}.png">
         </div>
     </div>
     <div class="card-content">
@@ -199,7 +212,7 @@ const app = {
 
     weatherCard2.innerHTML = `<div class="card-header">
         <div class="card-header-title">
-            ${weatherResp[1].dt_txt} <img src="https://openweathermap.org/img/wn/${weatherResp[1].weather[0].icon}.png">
+            ${convertedTimesArray[1]} <img src="https://openweathermap.org/img/wn/${weatherResp[1].weather[0].icon}.png">
         </div>
     </div>
     <div class="card-content">
@@ -212,7 +225,7 @@ const app = {
 
     weatherCard3.innerHTML = `<div class="card-header">
         <div class="card-header-title">
-            ${weatherResp[2].dt_txt} <img src="https://openweathermap.org/img/wn/${weatherResp[2].weather[0].icon}.png">
+            ${convertedTimesArray[2]} <img src="https://openweathermap.org/img/wn/${weatherResp[2].weather[0].icon}.png">
         </div>
     </div>
     <div class="card-content">
@@ -225,7 +238,7 @@ const app = {
 
     weatherCard4.innerHTML = `<div class="card-header">
         <div class="card-header-title">
-            ${weatherResp[3].dt_txt} <img src="https://openweathermap.org/img/wn/${weatherResp[3].weather[0].icon}.png">
+            ${convertedTimesArray[3]} <img src="https://openweathermap.org/img/wn/${weatherResp[3].weather[0].icon}.png">
         </div>
     </div>
     <div class="card-content">
@@ -235,10 +248,10 @@ const app = {
             <p><strong>Humidity:</strong> ${weatherResp[3].main.humidity}%</p>
         </div>
     </div>`;
-    
+
     weatherCard5.innerHTML = `<div class="card-header">
         <div class="card-header-title">
-            ${weatherResp[4].dt_txt} <img src="https://openweathermap.org/img/wn/${weatherResp[4].weather[0].icon}.png">
+            ${convertedTimesArray[4]} <img src="https://openweathermap.org/img/wn/${weatherResp[4].weather[0].icon}.png">
         </div>
     </div>
     <div class="card-content">
