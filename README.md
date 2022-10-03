@@ -15,7 +15,7 @@ https://dopecello.github.io/weather-app/
 * [Testing](#testing)
 * [Questions](#questions)
 ## Features
-`localStorage`-based search history, Free Weather API, Icons that give a visual description of the weather forecast.
+`localStorage`-based search history, Free Weather API, Icons that give a visual description of the weather forecast. User can look up the country code for their desired query to allow more a more accurate forecast.
 ## Languages/Dependencies
 node-sass, Bulma
 ## How-To-Use:
