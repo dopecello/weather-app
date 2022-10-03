@@ -6,7 +6,7 @@ inputs. User are also able to re-search past queries by clicking buttons on the 
 ## Deployed Application URL
 https://dopecello.github.io/weather-app/
 ## Screenshot
-[alt-text]("./assets/images/weatherapp.png")
+[alt-text](./assets/images/weatherapp.png)
 ## Table of Contents
 * [Features](#features)
 * [Languages/Dependencies](#languages/dependencies)
@@ -17,8 +17,9 @@ https://dopecello.github.io/weather-app/
 ## Features
 `localStorage`-based search history, Free Weather API, Icons that give a visual description of the weather forecast. User can look up the country code for their desired query to allow more a more accurate forecast.
 ## Languages/Dependencies
-node-sass, Bulma
-## How-To-Use:
-JavaScript, HTML, Bulma, SCSS
+Technologies: JavaScript, HTML, Bulma, SCSS
+Dependencies: node-sass, Bulma
+## How To Use This Application:
+Enter a valid city, state code(if the city is in the US), and a country code. Press search and you can see the current weather forecast along with the the five-day forecast.
 ## Questions
 Please send your questions [here](mailto:williamlocke.cello@gmail.com?subject=[GitHub]%20Dev%20Connect) or visit [github/dopecello](https://github.com/dopecello).
