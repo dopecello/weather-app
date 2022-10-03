@@ -6,7 +6,7 @@ inputs. User are also able to re-search past queries by clicking buttons on the 
 ## Deployed Application URL
 https://dopecello.github.io/weather-app/
 ## Screenshot
-[alt-text](./assets/images/weatherapp.png)
+![alt-text](./assets/images/weatherapp.png)
 ## Table of Contents
 * [Features](#features)
 * [Languages/Dependencies](#languages/dependencies)
