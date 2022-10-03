@@ -182,6 +182,7 @@ const app = {
     const weatherCard3 = document.getElementById("weather-card-3");
     const weatherCard4 = document.getElementById("weather-card-4");
     const weatherCard5 = document.getElementById("weather-card-5");
+    
     timesArray = [];
     timesArray.push(
       weatherResp[0].dt,
