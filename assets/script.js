@@ -11,7 +11,7 @@ const app = {
     let countryCode = document.getElementById("country-input").value;
     let key = "cc1eec67d9c183eb5563d87e72e89138";
     let limit = 1;
-    let url = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName},${stateCode},${countryCode}&limit=${limit}&appid=${key}`;
+    let url = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName},${stateCode},${countryCode}&limit=${limit}&appid=${key}`;
 
     if (url) {
       fetch(url)
@@ -34,7 +34,7 @@ const app = {
     let storageCountry = storage.country;
     let key = "cc1eec67d9c183eb5563d87e72e89138";
     let limit = 1;
-    let storageUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${storageCity},${storageCountry}&limit=${limit}&appid=${key}`;
+    let storageUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${storageCity},${storageCountry}&limit=${limit}&appid=${key}`;
 
     if (storageUrl) {
       fetch(storageUrl)
@@ -67,7 +67,7 @@ const app = {
     let lat = location.lat;
     let lon = location.lon;
     let key = "cc1eec67d9c183eb5563d87e72e89138";
-    let url = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${key}&units=imperial&lang=en`;
+    let url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${key}&units=imperial&lang=en`;
 
     fetch(url)
       .then((resp) => {
