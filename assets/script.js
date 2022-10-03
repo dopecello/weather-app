@@ -12,26 +12,50 @@ const app = {
     let key = "cc1eec67d9c183eb5563d87e72e89138";
     let limit = 1;
     let url = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName},${stateCode},${countryCode}&limit=${limit}&appid=${key}`;
-    fetch(url)
-      .then((resp) => {
-        if (!resp.ok) throw new Error(resp.statusText);
-        return resp.json();
-      })
-      .then((data) => {
-        let usableData = {};
-        usableData.lat = data[0].lat;
-        usableData.lon = data[0].lon;
-        app.fetchWeather(usableData);
-      })
-      .catch(console.err);
+
+    if (url) {
+      fetch(url)
+        .then((resp) => {
+          if (!resp.ok) throw new Error(resp.statusText);
+          return resp.json();
+        })
+        .then((data) => {
+          let usableData = {};
+          usableData.lat = data[0].lat;
+          usableData.lon = data[0].lon;
+          app.fetchWeather(usableData);
+        })
+        .catch(console.err);
+    }
+  },
+
+  fetchStoredLocation: (storage) => {
+    let storageCity = storage.city;
+    let storageCountry = storage.country;
+    let key = "cc1eec67d9c183eb5563d87e72e89138";
+    let limit = 1;
+    let storageUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${storageCity},${storageCountry}&limit=${limit}&appid=${key}`;
+
+    if (storageUrl) {
+      fetch(storageUrl)
+        .then((resp) => {
+          if (!resp.ok) throw new Error(resp.statusText);
+          return resp.json();
+        })
+        .then((data) => {
+          let usableStorageData = {};
+          usableStorageData.lat = data[0].lat;
+          usableStorageData.lon = data[0].lon;
+          app.fetchWeather(usableStorageData);
+        })
+        .catch(console.err);
+    }
   },
 
   fetchWeather: (location) => {
     const currentWeatherBox = document.getElementById("weather-box");
     const forecastTitle = document.getElementById("forecast-title");
-    const currentForecastTitle = document.getElementById(
-      "currentforecast-title"
-    );
+    const currentForecastTitle = document.getElementById("currentforecast-title");
     const forecastBox = document.getElementById("five-day-forecast");
     const weatherCard1 = document.getElementById("weather-card-1");
     const weatherCard2 = document.getElementById("weather-card-2");
@@ -42,13 +66,13 @@ const app = {
     let lon = location.lon;
     let key = "cc1eec67d9c183eb5563d87e72e89138";
     let url = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${key}&units=imperial&lang=en`;
+
     fetch(url)
       .then((resp) => {
         if (!resp.ok) throw new Error(resp.statusText);
         return resp.json();
       })
       .then((data) => {
-        console.log(data);
         if (data) {
           currentWeatherBox.classList.remove("hide");
           forecastTitle.classList.remove("hide");
@@ -85,6 +109,7 @@ const app = {
         //save to localStorage
         let searchHistory = {};
         searchHistory.city = data.city.name;
+        searchHistory.country = data.city.country;
 
         //pass data
         app.displayCurrentForecast(currentForecast);
@@ -108,6 +133,19 @@ const app = {
       "p-2",
       "mb-3"
     );
+
+    searchHistoryButton.onclick = function () {
+      let storageObject = {};
+      document.getElementById("city-input").value = "";
+      document.getElementById("state-input").value = "";
+      document.getElementById("country-input").value = "";
+      city = passedCity.city;
+      country = passedCity.country;
+      storageObject.city = city;
+      storageObject.country = country;
+      app.fetchStoredLocation(storageObject);
+    };
+
     searchHistoryButton.innerText = searchHistoryButtonInput;
     searchHistoryArea.appendChild(searchHistoryButton);
   },
@@ -134,7 +172,6 @@ const app = {
   },
 
   displayFiveDayForecast: (weatherResp) => {
-    console.log(weatherResp[0].dt_);
     const currentWeatherTitle = document.getElementById(
       "currentforecast-title"
     );
@@ -143,8 +180,10 @@ const app = {
     const weatherCard3 = document.getElementById("weather-card-3");
     const weatherCard4 = document.getElementById("weather-card-4");
     const weatherCard5 = document.getElementById("weather-card-5");
+
     currentWeatherTitle.innerText =
       "Current Weather on " + weatherResp[0].dt_txt;
+
     weatherCard1.innerHTML = `<div class="card-header">
         <div class="card-header-title">
             ${weatherResp[0].dt_txt} <img src="https://openweathermap.org/img/wn/${weatherResp[0].weather[0].icon}.png">
@@ -157,6 +196,7 @@ const app = {
             <p><strong>Humidity:</strong> ${weatherResp[0].main.humidity}%</p>
         </div>
     </div>`;
+
     weatherCard2.innerHTML = `<div class="card-header">
         <div class="card-header-title">
             ${weatherResp[1].dt_txt} <img src="https://openweathermap.org/img/wn/${weatherResp[1].weather[0].icon}.png">
@@ -169,6 +209,7 @@ const app = {
             <p><strong>Humidity:</strong> ${weatherResp[1].main.humidity}%</p>
         </div>
     </div>`;
+
     weatherCard3.innerHTML = `<div class="card-header">
         <div class="card-header-title">
             ${weatherResp[2].dt_txt} <img src="https://openweathermap.org/img/wn/${weatherResp[2].weather[0].icon}.png">
@@ -181,6 +222,7 @@ const app = {
             <p><strong>Humidity:</strong> ${weatherResp[2].main.humidity}%</p>
         </div>
     </div>`;
+
     weatherCard4.innerHTML = `<div class="card-header">
         <div class="card-header-title">
             ${weatherResp[3].dt_txt} <img src="https://openweathermap.org/img/wn/${weatherResp[3].weather[0].icon}.png">
@@ -193,6 +235,7 @@ const app = {
             <p><strong>Humidity:</strong> ${weatherResp[3].main.humidity}%</p>
         </div>
     </div>`;
+    
     weatherCard5.innerHTML = `<div class="card-header">
         <div class="card-header-title">
             ${weatherResp[4].dt_txt} <img src="https://openweathermap.org/img/wn/${weatherResp[4].weather[0].icon}.png">
